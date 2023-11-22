@@ -13,7 +13,7 @@ from grid_dijkstras_algorithm import find_shortest_paths
 
 
 class InvalidPathException(Exception):
-	def __init__(self, message='Incorrect Path'):
+	def __init__(self, message='\n\nIncorrect Path, Please enter a valid path to an image of a maze.'):
 		self.message = message
 		super().__init__(self.message)
 
