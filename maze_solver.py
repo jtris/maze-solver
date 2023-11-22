@@ -1,9 +1,3 @@
-"""
-todo:
-convert all the uncessary lists to tuples 
-"""
-
-
 import sys
 from os import path
 
