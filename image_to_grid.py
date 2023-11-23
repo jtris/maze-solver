@@ -1,7 +1,7 @@
-from typing import Tuple
+from numpy import ndarray
 
 
-def convert_img(image_path: str) -> Tuple:
+def convert_img(image: ndarray) -> tuple | int:
 	grid =  (
 		(0, 0, 0, 0, 0, 1, 0, 0),
 		(0, 0, 0, 0, 0, 1, 0, 1),

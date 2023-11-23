@@ -1,5 +1,5 @@
 import sys
-from typing import Tuple, List
+from typing import Sequence
 
 
 def get_node_neighbours(node, grid, num_rows, num_cols):
@@ -23,7 +23,7 @@ def get_node_neighbours(node, grid, num_rows, num_cols):
 # the grid parameter is a 2D tuple with 0's representing empty spaces and 1's representing walls
 # returns the same grid, but with the corresponding path length in the place of each node
 
-def find_shortest_paths(grid: Tuple, num_rows: int, num_cols: int, start_node: Tuple[int, int]) -> List:
+def find_shortest_paths(grid: Sequence, num_rows: int, num_cols: int, start_node: tuple[int, int]) -> list:
 	# stores coordinates of each unvisited node: [(r, c), (r, c), ...]
 	unvisited_nodes = [(row, col) for row in range(num_rows) for col in range(num_cols)]
 

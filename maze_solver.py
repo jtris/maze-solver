@@ -1,14 +1,9 @@
-"""
-todo:
-convert all the uncessary lists to tuples 
-"""
-
-
 import sys
 from os import path
 
+from crop_maze_image import crop_image
 from image_to_grid import convert_img
-from grid_start_node_finder import find_start_node
+from start_node_finder import find_start_node
 from grid_dijkstras_algorithm import find_shortest_paths
 
 
@@ -24,7 +19,8 @@ def main():
 	if not path.isfile(maze_img_path):
 		raise InvalidPathException
 
-	grid, num_rows, num_cols = convert_img(maze_img_path)
+	maze_img = crop_image(maze_img_path) # also converts the image to black and white
+	grid, num_rows, num_cols = convert_img(maze_img)
 	start_node = find_start_node(grid)
 	shortest_paths = find_shortest_paths(grid, num_rows, num_cols, start_node)
 
