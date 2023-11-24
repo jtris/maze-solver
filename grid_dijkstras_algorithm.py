@@ -52,5 +52,14 @@ def find_shortest_paths(grid: Sequence, num_rows: int, num_cols: int, start_node
 				shortest_path_costs[neighbour[0]][neighbour[1]] = tentative_value
 		
 		unvisited_nodes.pop(unvisited_nodes.index((current_min_node[0], current_min_node[1])))
+		
+
+
+		# ################################
+		# lll = len(unvisited_nodes)
+		# if lll % 1000 == 0 or lll < 1000:
+		# 	print(lll)
+		# ###############################
+
 
 	return shortest_path_costs
