@@ -3,11 +3,17 @@ import numpy as np
 
 
 def convert_img(image: np.ndarray) -> tuple | int:
+	total_px_count = len(image)*len(image[0])
 
-	# *determine the scaling factor, max=5 (?) default=1, deciding factor: number of computations
-	# ***
-	
-	scaling_factor = 4
+	if total_px_count < 13_000:
+		scaling_factor = 1
+	elif total_px_count < 52_000:
+		scaling_factor = 2
+	elif total_px_count < 117_000:
+		scaling_factor = 3
+	else:
+		scaling_factor = 4
+
 	image = cv2.resize(image, (len(image)//scaling_factor, len(image[0])//scaling_factor))
 
 	grid = []
