@@ -3,7 +3,9 @@ import numpy as np
 
 
 def convert_img(image: np.ndarray) -> tuple | int:
-	total_px_count = len(image)*len(image[0])
+	num_rows_img = len(image)
+	num_cols_img = len(image[0])
+	total_px_count = num_rows_img * num_cols_img
 
 	if total_px_count < 13_000:
 		scaling_factor = 1
@@ -17,10 +19,6 @@ def convert_img(image: np.ndarray) -> tuple | int:
 	image = cv2.resize(image, (len(image)//scaling_factor, len(image[0])//scaling_factor))
 
 	grid = []
-
-	num_rows_img = len(image)
-	num_cols_img = len(image[0])
-
 	for r in range(num_rows_img):
 		grid.append([])
 		for c in range(num_cols_img):
@@ -28,7 +26,7 @@ def convert_img(image: np.ndarray) -> tuple | int:
 
 	grid = np.asarray(grid)
 
-	num_rows = len(grid)
-	num_cols = len(grid[0])
+	num_rows_grid = len(grid)
+	num_cols_grid = len(grid[0])
 
-	return grid, num_rows, num_cols
+	return grid, num_rows_grid, num_cols_grid
