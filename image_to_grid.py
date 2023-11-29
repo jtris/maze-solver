@@ -16,12 +16,14 @@ def convert_img(image: np.ndarray) -> tuple | int:
 	else:
 		scaling_factor = 4
 
-	image = cv2.resize(image, (len(image)//scaling_factor, len(image[0])//scaling_factor))
+	resized_image = cv2.resize(image, (num_rows_img//scaling_factor, num_cols_img//scaling_factor))
 
+	num_rows_resized = len(resized_image)
+	num_cols_resized = len(resized_image[0])
 	grid = []
-	for r in range(num_rows_img):
+	for r in range(num_rows_resized):
 		grid.append([])
-		for c in range(num_cols_img):
+		for c in range(num_cols_resized):
 			grid[r].append(0 if image[r][c] == 255 else 1)
 
 	grid = np.asarray(grid)
