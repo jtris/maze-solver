@@ -1,4 +1,5 @@
 import numpy as np
+from custom_exceptions import InvalidMazeFormatException
 
 
 def find_start_end_nodes(grid: np.ndarray) -> tuple[int, int]:
@@ -59,6 +60,7 @@ def find_start_end_nodes(grid: np.ndarray) -> tuple[int, int]:
 			break
 
 	if not len(start_node) == 2 and len(end_node) == 2:
-		raise ValueError
+		raise InvalidMazeFormatException('The maze image is of incorrect format, \
+										it should have an entry and an exit.\n')
 
 	return start_node, end_node
