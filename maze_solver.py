@@ -3,7 +3,7 @@ from os import path
 
 from crop_maze_image import crop_image
 from image_to_grid import convert_img
-from start_node_finder import find_start_end_nodes
+from start_end_nodes_finder import find_start_end_nodes
 from grid_dijkstras_algorithm import find_shortest_paths
 
 
