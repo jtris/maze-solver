@@ -14,6 +14,6 @@ class NoArgumentError(Exception):
 
 class InvalidMazeFormatException(Exception):
 	'''Raise when the maze doesn't follow the format I've accounted for'''
-	def __init__(self, message='Incorrect format of a maze.'):
+	def __init__(self, message='Incorrect maze format.'):
 		self.message = message
 		super().__init__(self.message)
