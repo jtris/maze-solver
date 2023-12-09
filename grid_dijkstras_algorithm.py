@@ -1,5 +1,5 @@
 import sys
-from typing import Sequence
+from numpy import ndarray, asarray
 
 
 def get_node_neighbours(node, grid, num_rows, num_cols):
@@ -23,7 +23,7 @@ def get_node_neighbours(node, grid, num_rows, num_cols):
 # the grid parameter is a 2D tuple with 0's representing empty spaces and 1's representing walls
 # returns the same grid, but with the corresponding path length in the place of each node
 
-def find_shortest_paths(grid: Sequence, num_rows: int, num_cols: int, start_node: tuple[int, int]) -> list:
+def find_shortest_paths(grid: ndarray, num_rows: int, num_cols: int, start_node: tuple[int, int]) -> ndarray:
 	# stores coordinates of each unvisited node: [(r, c), (r, c), ...]
 	unvisited_nodes = [(row, col) for row in range(num_rows) for col in range(num_cols)]
 
@@ -52,14 +52,5 @@ def find_shortest_paths(grid: Sequence, num_rows: int, num_cols: int, start_node
 				shortest_path_costs[neighbour[0]][neighbour[1]] = tentative_value
 		
 		unvisited_nodes.pop(unvisited_nodes.index((current_min_node[0], current_min_node[1])))
-		
 
-
-		# ################################
-		# lll = len(unvisited_nodes)
-		# if lll % 1000 == 0 or lll < 1000:
-		# 	print(lll)
-		# ###############################
-
-
-	return shortest_path_costs
+	return asarray(shortest_path_costs)

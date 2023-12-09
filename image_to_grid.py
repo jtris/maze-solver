@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def convert_img(image: np.ndarray) -> tuple | int:
+def convert_img(image: np.ndarray) -> np.ndarray | tuple | int:
 	num_rows_img = len(image)
 	num_cols_img = len(image[0])
 	total_px_count = num_rows_img * num_cols_img
@@ -31,4 +31,4 @@ def convert_img(image: np.ndarray) -> tuple | int:
 	num_rows_grid = len(grid)
 	num_cols_grid = len(grid[0])
 
-	return grid, num_rows_grid, num_cols_grid
+	return grid, num_rows_grid, num_cols_grid, scaling_factor
