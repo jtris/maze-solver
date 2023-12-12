@@ -24,7 +24,7 @@ def convert_img(image: np.ndarray) -> np.ndarray | tuple | int:
 	for r in range(num_rows_resized):
 		grid.append([])
 		for c in range(num_cols_resized):
-			grid[r].append(0 if image[r][c] == 255 else 1)
+			grid[r].append(0 if resized_image[r][c] == 255 else 1)
 
 	grid = np.asarray(grid)
 

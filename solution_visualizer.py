@@ -5,7 +5,7 @@ import cv2
 def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shortest_paths: np.ndarray,\
 				  start_node: tuple[int], end_node: tuple[int]):
 
-	NUM_ROWS = len(shortest_paths)
+	NUM_ROWS = len(shortest_paths) 
 	NUM_COLS = len(shortest_paths[0])
 
 	def _get_neighbours(row, col):
@@ -44,11 +44,14 @@ def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shor
 		current_node = neighbours[neighbours_values.index(min(neighbours_values))]
 		optimal_path.append(current_node)
 
-	## display
+	path_image = np.full((NUM_ROWS, NUM_COLS, 3), (0, 0, 0), dtype=np.int32).astype(np.uint8) # a black image
 
-	# 2. resize
+	for (r, c) in optimal_path:
+		path_image[r][c] = (255, 0, 0)
 
-	# 3. project it onto the original cropped image
+	path_image = cv2.resize(path_image, (len(image[0]), len(image)))
+
+	# project it onto the original cropped image
 
 
 	return
