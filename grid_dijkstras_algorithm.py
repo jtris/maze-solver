@@ -2,7 +2,7 @@ import sys
 from numpy import ndarray, asarray
 
 
-def get_node_neighbours(node, grid, num_rows, num_cols):
+def _get_node_neighbours(node, grid, num_rows, num_cols):
 	neighbours = []
 	
 	if node[0] > 0 and grid[node[0]-1][node[1]] != 1: # down
@@ -37,11 +37,11 @@ def find_shortest_paths(grid: ndarray, num_rows: int, num_cols: int, start_node:
 		# find the node with the lowest value
 		for node in unvisited_nodes:
 			if current_min_node == None:
-				current_min_node = node			
+				current_min_node = node
 			elif shortest_path_costs[node[0]][node[1]] < shortest_path_costs[current_min_node[0]][current_min_node[1]]:
 				current_min_node = node
 
-		neighbours = get_node_neighbours(current_min_node, grid, num_rows, num_cols)
+		neighbours = _get_node_neighbours(current_min_node, grid, num_rows, num_cols)
 
 		for neighbour in neighbours:
 			tentative_value = shortest_path_costs[current_min_node[0]][current_min_node[1]] + 1
