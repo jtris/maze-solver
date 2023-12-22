@@ -7,7 +7,8 @@ def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shor
 
 	NUM_ROWS = len(shortest_paths) 
 	NUM_COLS = len(shortest_paths[0])
-	BLUE = np.array((255, 0, 0)).astype(np.uint8)
+	BLUE = (255, 0, 0)
+	BLACK = (0, 0, 0)
 
 
 	def _get_neighbours(row, col):
@@ -47,7 +48,7 @@ def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shor
 		optimal_path.append(current_node)
 
 	# only draw the path onto a black image, resizing would damage the quality of the original
-	path_image = np.full((NUM_ROWS, NUM_COLS, 3), (0, 0, 0), dtype=np.int32).astype(np.uint8)
+	path_image = np.full((NUM_ROWS, NUM_COLS, 3), BLACK, dtype=np.uint8)
 
 	for (r, c) in optimal_path:
 		path_image[r][c] = BLUE
