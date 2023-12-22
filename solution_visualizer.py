@@ -53,7 +53,13 @@ def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shor
 		path_image[r][c] = BLUE
 
 	path_image = cv2.resize(path_image, (len(image[0]), len(image)))
-	image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB) # convert back to bgr to draw the path
+
+	# thicken the path line
+	kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
+	path_image = cv2.dilate(path_image, kernel, iterations=2)
+
+	# convert back to bgr to draw the path
+	image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
 
 	# project it onto the original cropped image
 	for row in range(len(image)):
