@@ -7,11 +7,16 @@ def convert_img(image: np.ndarray) -> np.ndarray | tuple | int:
 	num_cols_img = len(image[0])
 	total_px_count = num_rows_img * num_cols_img
 
-	if total_px_count < 13_000:
+	# scaling factor thresholds - for better performance
+	SF_1_THRESH = 13_000
+	SF_2_THRESH = 52_000
+	SF_3_THRESH = 117_000
+
+	if total_px_count < SF_1_THRESH:
 		scaling_factor = 1
-	elif total_px_count < 52_000:
+	elif total_px_count < SF_2_THRESH:
 		scaling_factor = 2
-	elif total_px_count < 117_000:
+	elif total_px_count < SF_3_THRESH:
 		scaling_factor = 3
 	else:
 		scaling_factor = 4
