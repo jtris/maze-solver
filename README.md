@@ -32,7 +32,7 @@ python3 maze_solver.py C:\path\..\maze.jpg
 
 3. Run with an example maze
 	```cmd
-	python3 maze_solver.py .\mazes\maze300.png
+	python3 maze_solver.py ..\mazes\maze300.png
 	```
 
 ## Using your own mazes
