@@ -33,7 +33,4 @@ def convert_img(image: np.ndarray) -> np.ndarray | tuple | int:
 
 	grid = np.asarray(grid)
 
-	num_rows_grid = len(grid)
-	num_cols_grid = len(grid[0])
-
-	return grid, num_rows_grid, num_cols_grid, scaling_factor
+	return grid, scaling_factor

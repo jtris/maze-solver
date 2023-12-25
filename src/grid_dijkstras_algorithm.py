@@ -23,7 +23,10 @@ def _get_node_neighbours(node, grid, num_rows, num_cols):
 # the grid parameter is a 2D numpy array with 0's representing empty spaces and 1's representing walls
 # returns the same grid, but with the corresponding path length in place of each node
 
-def find_shortest_paths(grid: ndarray, num_rows: int, num_cols: int, start_node: tuple[int, int]) -> ndarray:
+def find_shortest_paths(grid: ndarray, start_node: tuple[int, int]) -> ndarray:
+	num_rows = len(grid)
+	num_cols = len(grid[0])
+
 	# stores coordinates of each unvisited node: [(r, c), (r, c), ...]
 	unvisited_nodes = [(row, col) for row in range(num_rows) for col in range(num_cols)]
 

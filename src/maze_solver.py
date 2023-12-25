@@ -20,9 +20,9 @@ def main():
 		raise InvalidPathException
 	
 	maze_img = crop_image(maze_img_path) # also converts the image to black and white
-	grid, num_rows, num_cols, scaling_factor = convert_img(maze_img)
+	grid, scaling_factor = convert_img(maze_img)
 	start_node, end_node = find_start_end_nodes(grid)
-	shortest_paths = find_shortest_paths(grid, num_rows, num_cols, start_node)
+	shortest_paths = find_shortest_paths(grid, start_node)
 	show_solution(maze_img, scaling_factor, grid, shortest_paths, start_node, end_node)	
 
 
