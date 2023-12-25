@@ -39,8 +39,10 @@ python3 maze_solver.py C:\path\..\maze.jpg
 - the mazes it can solve have to follow a certain set of "standards" I've accounted for:
 
 1) it has to be either a **square** or a **rectangle**, doesn't work with round mazes or other unconventional maze shapes
+
 <img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/good_shape.png" alt="good shape example" width="100"/><img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/bad_shape.png" alt="bad shape example" width="100"/>
 
 
 2) it has to have an **entrance and** an **exit**, i.e. two places where the outer wall is discontinuous (has a hole), right now they can't be on the same side, but I'll add that possibility in the near future
+
 <img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/good_num_openings.png" alt="good number of openings (2)" width="100"/><img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/bad_num_openings.png" alt="bad number of openings" width="100"/><img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/bad_num_openings1.png" alt="bad number of openings" width="100"/>
