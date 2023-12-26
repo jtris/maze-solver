@@ -12,8 +12,15 @@ class NoArgumentError(Exception):
 		super().__init__(self.message)
 
 
-class InvalidMazeFormatException(Exception):
+class InvalidMazeFormatError(Exception):
 	'''Raise when the maze doesn't follow the format I've accounted for'''
-	def __init__(self, message='Incorrect maze format.'):
+	def __init__(self, message='Incorrect maze format.\n'):
+		self.message = message
+		super().__init__(self.message)
+
+
+class InvalidImageFormatError(Exception):
+	'''Raise when the supplied image is either of a format OpenCV can't read or it isn't an image'''
+	def __init__(self, message='Invalid image. Try a different file-type and make sure it is an image.\n'):
 		self.message = message
 		super().__init__(self.message)

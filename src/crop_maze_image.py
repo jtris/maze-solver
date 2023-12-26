@@ -1,16 +1,26 @@
 import numpy as np
 import cv2
 
+from custom_exceptions import InvalidImageFormatError, InvalidMazeFormatError
+
 
 def crop_image(path: str) -> np.ndarray:
     img = cv2.imread(path)
-    grey_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    try:
+        grey_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    except:
+        raise InvalidImageFormatError
 
     # convert to black and white
     (_, black_white_img) = cv2.threshold(grey_img, 127, 255, cv2.THRESH_BINARY)
 
     # crop image
     zeros_occurences = np.where(black_white_img == 0)[0]
+    
+    if len(zeros_occurences) == 0:
+        raise InvalidMazeFormatError(message="Incorrect maze format. Wasn't alble to find any walls.")
+    
     top_line_index = zeros_occurences[0]
     bottom_line_index = zeros_occurences[-1] + 1
 
