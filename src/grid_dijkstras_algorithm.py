@@ -5,10 +5,10 @@ from numpy import ndarray, asarray
 def _get_node_neighbours(node, grid, num_rows, num_cols):
 	neighbours = []
 	
-	if node[0] > 0 and grid[node[0]-1][node[1]] != 1: # down
+	if node[0] > 0 and grid[node[0]-1][node[1]] != 1: # up
 		neighbours.append((node[0]-1, node[1]))
 
-	if node[0] < num_rows -1 and grid[node[0]+1][node[1]] != 1: # up
+	if node[0] < num_rows-1 and grid[node[0]+1][node[1]] != 1: # down
 		neighbours.append((node[0]+1, node[1]))
 
 	if node[1] > 0 and grid[node[0]][node[1]-1] != 1: # left
@@ -23,9 +23,8 @@ def _get_node_neighbours(node, grid, num_rows, num_cols):
 # the grid parameter is a 2D numpy array with 0's representing empty spaces and 1's representing walls
 # returns the same grid, but with the corresponding path length in place of each node
 
-def find_shortest_paths(grid: ndarray, start_node: tuple[int, int]) -> ndarray:
-	num_rows = len(grid)
-	num_cols = len(grid[0])
+def find_shortest_paths(grid: ndarray, start_node: tuple[int]) -> ndarray:
+	num_rows, num_cols = grid.shape
 
 	# stores coordinates of each unvisited node: [(r, c), (r, c), ...]
 	unvisited_nodes = [(row, col) for row in range(num_rows) for col in range(num_cols)]

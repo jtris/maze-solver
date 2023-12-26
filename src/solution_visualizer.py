@@ -5,8 +5,8 @@ import cv2
 def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shortest_paths: np.ndarray,\
 				  start_node: tuple[int], end_node: tuple[int]):
 
-	NUM_ROWS = len(shortest_paths) 
-	NUM_COLS = len(shortest_paths[0])
+	original_num_rows, original_num_cols = image.shape
+	NUM_ROWS, NUM_COLS = shortest_paths.shape
 	BLUE = (255, 0, 0)
 	BLACK = (0, 0, 0)
 
@@ -53,18 +53,18 @@ def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shor
 	for (r, c) in optimal_path:
 		path_image[r][c] = BLUE
 
-	path_image = cv2.resize(path_image, (len(image[0]), len(image)))
+	path_image = cv2.resize(path_image, (original_num_cols, original_num_rows))
 
 	# thicken the path line
-	kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
+	kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 	path_image = cv2.dilate(path_image, kernel, iterations=2)
 
 	# convert back to bgr to draw the path
 	image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
 
 	# project it onto the original cropped image
-	for row in range(len(image)):
-		for col in range(len(image[0])):
+	for row in range(original_num_rows):
+		for col in range(original_num_cols):
 			if path_image[row, col, 0] > 150:
 				image[row, col] = BLUE
 

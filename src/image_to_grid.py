@@ -23,8 +23,7 @@ def convert_img(image: np.ndarray) -> np.ndarray | tuple | int:
 
 	resized_image = cv2.resize(image, (num_rows_img//scaling_factor, num_cols_img//scaling_factor))
 
-	num_rows_resized = len(resized_image)
-	num_cols_resized = len(resized_image[0])
+	num_rows_resized, num_cols_resized = resized_image.shape
 	grid = []
 	for r in range(num_rows_resized):
 		grid.append([])
