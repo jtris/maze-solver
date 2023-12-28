@@ -1,89 +1,87 @@
-from numpy import ndarray, array
+import numpy as np
 from custom_exceptions import InvalidMazeFormatError
 
 
-def find_start_end_nodes(grid: ndarray) -> tuple[int]:
+'''
+for identifying the second gap in case it's on the same side of the maze as the first one,
+
+index_list: product of np.where(...), array of indexes of 0 in one of grid's sides 
+returns: index of the first element that isn't consecutive (index-wise) to the previous elements
+'''
+def _get_index_of_nonconsecutive_occurrence(index_list):
+	list_len = len(index_list)
+	
+	if list_len < 2:
+		return
+
+	for i in range(1, list_len):
+		if index_list[i-1] == index_list[i]-1:
+			continue
+		return i
+
+
+def _get_single_node_value(node, zeros):
+	gap_middle_index = (zeros[0] + zeros[-1])//2
+	
+	if node[0] == -1:
+		node[0] = gap_middle_index 
+		return node
+	node.append(gap_middle_index)
+	return node	
+
+
+def find_start_end_nodes(grid: np.ndarray) -> tuple[int]:
+	grid[0][0], grid[0][-1], grid[-1][0], grid[-1][-1] = 1, 1, 1, 1
 	
 	top_pixels = grid[0]
 	bottom_pixels = grid[-1]
-	left_pixels = array([grid[i][0] for i in range(len(grid))])
-	right_pixels = array([grid[i][-1] for i in range(len(grid))])
-	last_row_index = len(grid)-1
+	left_pixels = np.array([grid[i][0] for i in range(len(grid))])
+	right_pixels = np.array([grid[i][-1] for i in range(len(grid))])
+	last_row_index = len(grid) - 1
+	start_node, end_node = None, None
 
-	values = {
+	determined_values = {
 		id(top_pixels) : [0],
 		id(bottom_pixels) : [last_row_index],
 		id(left_pixels) : [-1, 0], # -1 is just a placeholder
 		id(right_pixels) : [-1, last_row_index]
 	}
-
-	start_node = []
-	end_node = []
-
-	first_gap_occured = False
-	second_gap_occured = False
-	start_node_first_index = -1
-	start_node_last_index = -1
-	end_node_first_index = -1
-	end_node_last_index = -1
-	first_done = False
-	second_done = False
 	
 	for pixels in (top_pixels, bottom_pixels, left_pixels, right_pixels):
-		pixels[0], pixels[-1] = 1, 1
-		
-		if second_gap_occured:
+		zeros = np.where(pixels == 0)[0]
+		if len(zeros) == 0:
+			continue
+
+		nonc_index = _get_index_of_nonconsecutive_occurrence(zeros)
+
+		# either the start or the end are on this side
+		if nonc_index is None:
+			if start_node is None:
+				start_node = _get_single_node_value(determined_values[id(pixels)], zeros)
+				continue
+			end_node = _get_single_node_value(determined_values[id(pixels)], zeros)
 			break
 
-		for i in range(len(pixels)):
-			if pixels[i] == 0:
-				if not first_gap_occured:
-					first_gap_occured = True
-					start_node_first_index = i
+		# both the start and end are on the same side:
+		start_node = determined_values[id(pixels)].copy()
+		end_node = start_node.copy()
 
-				# elif start_node_last_index != -1 and not second_gap_occured and not (i == start_node_first_index+1 and first_done == False):
-				elif start_node_last_index != -1 and not second_gap_occured and i != start_node_first_index+1:
-					second_gap_occured = True
-					end_node_first_index = i
-				else: continue
-			else:
-				if pixels[i-1] == 0:
-					if start_node_last_index == -1:
-						start_node_last_index = i-1
-					elif end_node_first_index != -1 and end_node_last_index == -1:
-						end_node_last_index = i-1
-
-		# when we finish iterating over pixels of a side, but we didn't encounter an end to a gap:
-		if not first_done and first_gap_occured:
-			if start_node_last_index == -1:
-				start_node_last_index = len(pixels)-1
+		if start_node[0] == -1:
+			start_node[0] = (zeros[0] + zeros[:nonc_index][-1])//2
+			end_node[0] = (zeros[nonc_index] + zeros[-1])//2
+			continue
 			
-			start_node = values[id(pixels)].copy()
-			first_done = True
+		start_node.append((zeros[0] + zeros[:nonc_index][-1])//2)
+		end_node.append((zeros[nonc_index] + zeros[-1])//2)
+		break
 
-			if len(start_node) == 1:
-				start_node.append((start_node_first_index+start_node_last_index)//2)
-			else: # it's either [-1, 0] or [-1, last_row_index]
-				start_node[0] = (start_node_first_index+start_node_last_index)//2
-		
-		if not second_done and second_gap_occured:
-			if end_node_last_index == -1:
-				end_node_last_index = len(pixels)-1
-			
-			end_node = values[id(pixels)]
-			second_done = True
-
-			if len(end_node) == 1:
-				end_node.append((end_node_first_index+end_node_last_index)//2)
-			else:
-				end_node[0] = (end_node_first_index+end_node_last_index)//2
-
-	if not second_gap_occured:
-		raise InvalidMazeFormatError('The maze image is of incorrect format, \
-			it should have an entry and an exit. Only one of those was found.\n')
-
-	if not first_gap_occured:
+	# handle potential errors
+	if start_node is None:
 		raise InvalidMazeFormatError('The maze image is of incorrect format, \
 			it should have an entry and an exit. Neither was found.\n')
+
+	if end_node is None:
+		raise InvalidMazeFormatError('The maze image is of incorrect format, \
+			it should have an entry and an exit. Only one of those was found.\n')
 
 	return tuple(start_node), tuple(end_node)
