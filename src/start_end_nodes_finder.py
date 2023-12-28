@@ -1,4 +1,5 @@
 from numpy import ndarray, array
+from custom_exceptions import InvalidMazeFormatError
 
 
 def find_start_end_nodes(grid: ndarray) -> tuple[int]:
@@ -12,8 +13,8 @@ def find_start_end_nodes(grid: ndarray) -> tuple[int]:
 	values = {
 		id(top_pixels) : [0],
 		id(bottom_pixels) : [last_row_index],
-		id(left_pixels) : [-2, 0], # -2 is just a placeholder
-		id(right_pixels) : [-2, last_row_index]
+		id(left_pixels) : [-1, 0], # -1 is just a placeholder
+		id(right_pixels) : [-1, last_row_index]
 	}
 
 	start_node = []
@@ -36,11 +37,12 @@ def find_start_end_nodes(grid: ndarray) -> tuple[int]:
 
 		for i in range(len(pixels)):
 			if pixels[i] == 0:
-				if first_gap_occured == False:
+				if not first_gap_occured:
 					first_gap_occured = True
 					start_node_first_index = i
 
-				elif start_node_last_index != -1 and not second_gap_occured and not (i == start_node_first_index+1 and first_done == False):
+				# elif start_node_last_index != -1 and not second_gap_occured and not (i == start_node_first_index+1 and first_done == False):
+				elif start_node_last_index != -1 and not second_gap_occured and i != start_node_first_index+1:
 					second_gap_occured = True
 					end_node_first_index = i
 				else: continue
@@ -51,7 +53,8 @@ def find_start_end_nodes(grid: ndarray) -> tuple[int]:
 					elif end_node_first_index != -1 and end_node_last_index == -1:
 						end_node_last_index = i-1
 
-		if first_done == False and first_gap_occured:
+		# when we finish iterating over pixels of a side, but we didn't encounter an end to a gap:
+		if not first_done and first_gap_occured:
 			if start_node_last_index == -1:
 				start_node_last_index = len(pixels)-1
 			
@@ -60,10 +63,10 @@ def find_start_end_nodes(grid: ndarray) -> tuple[int]:
 
 			if len(start_node) == 1:
 				start_node.append((start_node_first_index+start_node_last_index)//2)
-			else: # it's either [-2, 0] or [-2, last_row_index]
+			else: # it's either [-1, 0] or [-1, last_row_index]
 				start_node[0] = (start_node_first_index+start_node_last_index)//2
 		
-		if second_done == False and second_gap_occured:
+		if not second_done and second_gap_occured:
 			if end_node_last_index == -1:
 				end_node_last_index = len(pixels)-1
 			
@@ -74,5 +77,13 @@ def find_start_end_nodes(grid: ndarray) -> tuple[int]:
 				end_node.append((end_node_first_index+end_node_last_index)//2)
 			else:
 				end_node[0] = (end_node_first_index+end_node_last_index)//2
+
+	if not second_gap_occured:
+		raise InvalidMazeFormatError('The maze image is of incorrect format, \
+			it should have an entry and an exit. Only one of those was found.\n')
+
+	if not first_gap_occured:
+		raise InvalidMazeFormatError('The maze image is of incorrect format, \
+			it should have an entry and an exit. Neither was found.\n')
 
 	return tuple(start_node), tuple(end_node)
