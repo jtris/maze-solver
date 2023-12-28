@@ -20,6 +20,7 @@ def _get_index_of_nonconsecutive_occurrence(index_list):
 		return i
 
 
+# completes node when given a predetermined half of it, and zeros array
 def _get_single_node_value(node, zeros):
 	gap_middle_index = (zeros[0] + zeros[-1])//2
 	
@@ -46,7 +47,8 @@ def find_start_end_nodes(grid: np.ndarray) -> tuple[int]:
 		id(left_pixels) : [-1, 0], # -1 is just a placeholder
 		id(right_pixels) : [-1, last_row_index]
 	}
-	
+
+	# find gaps (start and end node) in arrays of side pixels	
 	for pixels in (top_pixels, bottom_pixels, left_pixels, right_pixels):
 		zeros = np.where(pixels == 0)[0]
 		if len(zeros) == 0:
@@ -75,7 +77,6 @@ def find_start_end_nodes(grid: np.ndarray) -> tuple[int]:
 		end_node.append((zeros[nonc_index] + zeros[-1])//2)
 		break
 
-	# handle potential errors
 	if start_node is None:
 		raise InvalidMazeFormatError('The maze image is of incorrect format, \
 			it should have an entry and an exit. Neither was found.\n')
