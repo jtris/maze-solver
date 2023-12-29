@@ -15,24 +15,6 @@ python3 maze_solver.py <path to image>
 
 <img src="https://github.com/triskj0/maze-solver/blob/main/mazes/maze500.png" alt="screenshot" width="300"/> <img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/maze500result.png" alt="screenshot" width="300"/>
 
-## How to run
-1. Clone
-	```cmd
-	git clone https://github.com/triskj0/maze-solver.git
-
- 	cd maze-solver/src
-	```
-
-2. Install required packages
-	```cmd
-	python3 -m pip install -r requirements.txt
-	```
-
-3. Run with an example maze
-	```cmd
-	python3 maze_solver.py ..\mazes\maze300.png
-	```
-
 ## Using your own mazes
 - the mazes it can solve have to follow a certain set of "standards" I've accounted for:
 
@@ -50,3 +32,30 @@ python3 maze_solver.py <path to image>
 - maybe you've noticed that `maze400_2.png` doesn't fully obey the maze standards I mentioned before this, yet it still works. That's because when it gets cropped, we're only looking for the top left, bottom right, and then top right corner of the maze, so you might be able to successfully use *some* weird shapes.
 
 <img src="https://github.com/triskj0/maze-solver/blob/main/mazes/maze400_2.png" alt="maze400_2.png" width="220"/>
+
+## How to run
+1. Clone
+	```cmd
+	git clone https://github.com/triskj0/maze-solver.git
+
+ 	cd maze-solver
+	```
+
+2. Install required packages
+	```cmd
+	python3 -m pip install -r requirements.txt
+	```
+ 
+3. Compile grid_dijkstras_algorithm.pyx into .pyc for better performance
+	```cmd
+	cd src
+
+ 	python3 cython_setup.py build_ext --inplace
+	```
+
+3. Run with an example maze
+	```cmd
+	python3 maze_solver.py ..\mazes\maze300.png
+	```
+
+
