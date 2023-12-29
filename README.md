@@ -46,7 +46,7 @@ python3 maze_solver.py <path to image>
 	python3 -m pip install -r requirements.txt
 	```
  
-3. Compile grid_dijkstras_algorithm.pyx into .pyc for better performance
+3. Compile grid_dijkstras_algorithm.pyx into .pyd for better performance
 	```cmd
 	cd src
 
