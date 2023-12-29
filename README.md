@@ -40,7 +40,7 @@ python3 maze_solver.py <path to image>
 
 <img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/good_shape.png" alt="good shape example" width="100"/><img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/bad_shape.png" alt="bad shape example" width="100"/>
 
-2) it has to have an **entrance and** an **exit**, i.e. two places where the outer wall is discontinuous (has a hole), right now they can't be on the same side, but I'll add that possibility in the near future
+2) it has to have an **entrance and** an **exit**, i.e. two places where the outer wall is discontinuous (has a hole)
 
 <img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/good_num_openings.png" alt="good number of openings (2)" width="120"/><img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/bad_num_openings.png" alt="bad number of openings" width="120"/><img src="https://github.com/triskj0/maze-solver/blob/main/screenshots/bad_num_openings1.png" alt="bad number of openings" width="120"/>
 
