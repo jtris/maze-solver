@@ -1,10 +1,11 @@
 import sys
-from numpy import ndarray, asarray
+import Cython
+from numpy import asarray
 
 
-def _get_node_neighbours(node, grid, num_rows, num_cols):
-	neighbours = []
-	
+cdef list _get_node_neighbours(node, int[:, :] grid, int num_rows, int num_cols):
+	cdef list neighbours = []
+
 	if node[0] > 0 and grid[node[0]-1][node[1]] != 1: # up
 		neighbours.append((node[0]-1, node[1]))
 
@@ -20,17 +21,18 @@ def _get_node_neighbours(node, grid, num_rows, num_cols):
 	return neighbours
 
 
-# the grid parameter is a 2D numpy array with 0's representing empty spaces and 1's representing walls
-# returns the same grid, but with the corresponding path length in place of each node
-
-def find_shortest_paths(grid: ndarray, start_node: tuple[int]) -> ndarray:
-	num_rows, num_cols = grid.shape
+cpdef find_shortest_paths(int[:, :] grid, tuple start_node):
+	cdef unsigned int num_rows = len(grid)
+	cdef unsigned int num_cols = len(grid[0]) 
+	cdef list neighbours
+	cdef unsigned long long tentative_value
+	cdef tuple current_min_node
 
 	# stores coordinates of each unvisited node: [(r, c), (r, c), ...]
-	unvisited_nodes = [(row, col) for row in range(num_rows) for col in range(num_cols)]
+	cdef list[num_rows][num_cols] unvisited_nodes = [(row, col) for row in range(num_rows) for col in range(num_cols)]
 
 	# same shape as grid
-	shortest_path_costs = [[sys.maxsize for col in range(num_cols)] for row in range(num_rows)]
+	cdef list[num_rows][num_cols] shortest_path_costs = [[sys.maxsize for col in range(num_cols)] for row in range(num_rows)]
 	shortest_path_costs[start_node[0]][start_node[1]] = 0
 	
 	while unvisited_nodes:
