@@ -1,11 +1,9 @@
 # Maze Solver
 
-## How to use
+## Usage
 ``` cmd
-python3 maze_solver.py C:\path\..\maze.jpg
+python3 maze_solver.py <path to image>
 ```
-
-- specify the path to an image of a maze as the first argument to maze_solver
 
 ## Showcase
 
