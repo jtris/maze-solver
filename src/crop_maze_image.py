@@ -9,7 +9,7 @@ def crop_image(path: str) -> np.ndarray:
 
     try:
         grey_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    except:
+    except cv2.error:
         raise InvalidImageFormatError
 
     # convert to black and white
