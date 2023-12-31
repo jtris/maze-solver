@@ -67,3 +67,4 @@ python3 maze_solver.py <path to image>
  	`path` = path to the image that yields bad results <br>
   	`number of iterations` (optional) = how many times should we dilate, more iterations -> thicker walls, recommended amount: 1-3
   
+- this will save the dilated image into your current working directory
