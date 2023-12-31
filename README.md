@@ -58,4 +58,12 @@ python3 maze_solver.py <path to image>
 	python3 maze_solver.py ..\mazes\maze300.png
 	```
 
-
+## Does the program seem to overlook a wall?
+- in case you get an incorrect result, consider whether the cause of this could be thin walls, the image gets scaled down so when the walls are too thin, the program doesn't see any after scaling
+- try dilation
+	```cmd
+ 	python3 maze_wall_dilation.py <path> <number of iterations>
+ 	```
+ 	`path` = path to the image that yields bad results <br>
+  	`number of iterations` (optional) = how many times should we dilate, more iterations -> thicker walls, recommended amount: 1-3
+  
