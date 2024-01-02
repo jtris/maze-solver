@@ -71,5 +71,5 @@ def show_solution(image: np.ndarray, scaling_factor: int, grid: np.ndarray, shor
     cv2.imshow('', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    return
+    return image
 
