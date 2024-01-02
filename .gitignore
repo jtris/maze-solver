@@ -1,0 +1,14 @@
+
+# files generated when compiling cython files
+build/
+*.pyd
+*.c
+
+
+# pycache
+__pycache__/
+
+
+# leftover generated solutions
+*.png
+*.jpg
