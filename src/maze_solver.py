@@ -12,12 +12,22 @@ from save_solution import save_solution
 
  
 def main():
+
+    help_message = '''\nusage: python3 maze_solver.py <path> [-s <save_path>]\n
+                  <path>: path to an image of a maze\n
+                  [-s <save_path>] (optional) : path to where the solution will be saved,
+                    if you type -s but don't specify <save_path>, it will be saved to your current working directory\n'''
+
     try:
         maze_img_path = sys.argv[1:2][0]
     except IndexError:
         raise NoArgumentError from IndexError
     
     if not path.isfile(maze_img_path):
+        if maze_img_path == '-help' or maze_img_path == 'help':
+            print(help_message)
+            return
+
         raise InvalidPathException
    
     try:
