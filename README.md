@@ -1,9 +1,13 @@
 # Maze Solver
-
-## Usage
-``` cmd
-python3 maze_solver.py <path to image>
+ 
+ ## Usage
+```ps1
+python3 maze_solver.py [help | -help] <path> [-s <save_path>]
 ```
+`-help` (optional): prints usage <br>
+`<path>`: path to an image of a maze <br>
+`-s` (optional): the result will be saved, if there's no `<save_path>` after it, save path will be the current working directory <br>
+`<save_path>` (optional): path to where the image will be saved
 
 ## Showcase
 
