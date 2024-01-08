@@ -1,13 +1,13 @@
 import numpy as np
 from custom_exceptions import InvalidMazeFormatError
 
-
 '''
 for identifying the second gap in case it's on the same side of the maze as the first one,
 
 index_list: product of np.where(...), array of indexes of 0 in one of grid's sides 
 returns: index of the first element that isn't consecutive (index-wise) to the previous elements
 '''
+
 def _get_index_of_nonconsecutive_occurrence(index_list):
     list_len = len(index_list)
     
@@ -44,7 +44,7 @@ def find_start_end_nodes(grid: np.ndarray) -> tuple[int]:
     determined_values = {
         id(top_pixels) : [0],
         id(bottom_pixels) : [last_row_index],
-        id(left_pixels) : [-1, 0], # -1 is just a placeholder
+        id(left_pixels) : [-1, 0], # -1 is a placeholder
         id(right_pixels) : [-1, last_row_index]
     }
 

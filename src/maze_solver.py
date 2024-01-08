@@ -38,7 +38,6 @@ def main():
     except IndexError:
         save = False
 
-    # get save path
     try:
         save_path = sys.argv[3:4][0]
     except IndexError:
@@ -47,7 +46,7 @@ def main():
     if save_path is not None and not path.isdir(save_path):
         raise InvalidPathException('\nInvalid save path.')
 
-    maze_img = crop_image(maze_img_path) # also converts the image to black and white
+    maze_img = crop_image(maze_img_path)
     grid, scaling_factor = convert_img(maze_img)
     start_node, end_node = find_start_end_nodes(grid)
     shortest_paths = find_shortest_paths(grid, start_node)

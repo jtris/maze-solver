@@ -15,7 +15,6 @@ def crop_image(path: str) -> np.ndarray:
     # convert to black and white
     (_, black_white_img) = cv2.threshold(grey_img, 127, 255, cv2.THRESH_BINARY)
 
-    # crop image
     zeros_occurences = np.where(black_white_img == 0)[0]
     
     if len(zeros_occurences) == 0:
@@ -28,6 +27,6 @@ def crop_image(path: str) -> np.ndarray:
     l_line_index = zeros_occurences[0]
     r_line_index = zeros_occurences[-1] + 1
 
-    black_white_img = black_white_img[top_line_index:bottom_line_index, l_line_index:r_line_index]
+    cropped_black_white_img = black_white_img[top_line_index:bottom_line_index, l_line_index:r_line_index]
 
-    return black_white_img
+    return cropped_black_white_img
