@@ -15,7 +15,7 @@ def main():
     
     try:
         iterations = int(sys.argv[2:3][0])
-    except:
+    except IndexError:
         iterations = 1
 
     if not path.isfile(maze_img_path):
